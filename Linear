@@ -1,0 +1,28 @@
+import numpy as np # linear algebra
+import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
+import seaborn as sns
+import matplotlib.pyplot as plt
+import sklearn as skl
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix, f1_score, accuracy_score, precision_score, recall_score
+from sklearn.metrics import classification_report
+
+df = pd.read_csv('/kaggle/input/heart-disease-prediction/heart_disease_dataset.csv')
+df.head()
+df.shape
+sns.countplot(df['Heart Disease'])
+df[df.duplicated()]
+df.describe()
+sns.countplot(x='Gender',hue='Heart Disease',data=df)
+sns.countplot(x='Age',hue='Heart Disease',data=df)
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.25, random_state=0)
+lr = LogisticRegression()
+lr.fit(X_train , Y_train)
+pred = lr.predict(X_test)
+pred.shape
+print(accuracy_score(Y_test , pred))
+print(confusion_matrix(Y_test , pred))
+print(precision_score(Y_test , pred))
+print(recall_score(Y_test , pred))
+print(f1_score(Y_test , pred))
+print(classification_report(Y_test , pred))
